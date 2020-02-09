@@ -6,9 +6,9 @@
   "RABBITMQ_PRE_FETCH_MSG": 10,
   "RABBITMQ_HOST": "127.0.0.1",
   "RABBITMQ_PORT": 5772,
-  "RABBITMQ_USERNAME": "crm-user",
-  "RABBITMQ_PASSWORD": "th2jBqXL",
-  "RABBITMQ_VHOST": "/crm",
+  "RABBITMQ_USERNAME": "",
+  "RABBITMQ_PASSWORD": "",
+  "RABBITMQ_VHOST": "/vhost",
   "fastify": {
     "logger": {
       "level": "info"

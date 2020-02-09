@@ -9,6 +9,7 @@ const { RABBIT_QUEUE_CONNECTED,
 to track status of the connection, it is not available on channel
  */
 let isQueueConnectionAlive = true;
+let channel = null;
 const reConnectLapse = parseInt(config.get('RABBITMQ_RECONNECT_TIME' , 10000));
 
 /*
@@ -56,9 +57,9 @@ const connectRabbitMQ = async (host) => {
       setTimeout(() => connectRabbitMQ(host), reConnectLapse);
     });
 
-    const channel = await connection.createChannel();
+    channel = await connection.createChannel();
     isQueueConnectionAlive = true;
-    subscribeQueue(channel);
+    subscribeQueue();
 
   } catch (err) {
     // exception
@@ -71,7 +72,7 @@ const connectRabbitMQ = async (host) => {
 /*
 attach queue with a callback
  */
-const subscribeQueue = async (channel) => {
+const subscribeQueue = async () => {
   const preFetchCount = parseInt(config.get('RABBITMQ_PRE_FETCH_MSG', 10));
   channel.prefetch(preFetchCount);
 
@@ -81,6 +82,14 @@ const subscribeQueue = async (channel) => {
     // acknowledgment on channel
     queue[key].setChannel(channel);
   }
+};
+
+/**
+ *
+ * @returns {Promise<*>}
+ */
+const getConnectedChannel = async () => {
+  return channel;
 };
 
 /**
@@ -101,5 +110,6 @@ const initiateRabbitMQ = async () => {
 
 module.exports = {
   initiateRabbitMQ,
-  getConnectionStatus
+  getConnectionStatus,
+  getConnectedChannel
 };

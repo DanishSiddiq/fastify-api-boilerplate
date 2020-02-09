@@ -23,12 +23,12 @@ module.exports = fastify;
         fastify.use(cors());
 
         // Plugins
-        fastify.register(require('fastify-boom'));
+        // fastify.register(require('fastify-boom'));
         fastify.register(v1RoutesMiddleware, { prefix: '/v1' });
         fastify.register(infoRoutesMiddleware);
 
         // queue listener
-        initiateRabbitMQ();
+        //initiateRabbitMQ();
 
         // Server
         await fastify.listen(config.get('NODE_PORT', 6661), '0.0.0.0');
