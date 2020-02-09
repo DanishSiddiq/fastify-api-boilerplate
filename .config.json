@@ -1,0 +1,23 @@
+{
+  "NODE_ENV": "dev",
+  "NODE_PORT": 7000,
+  "MONGODB_DSN": "mongodb://localhost:27017/student_enrollment",
+  "RABBITMQ_RECONNECT_TIME": 10000,
+  "RABBITMQ_PRE_FETCH_MSG": 10,
+  "RABBITMQ_HOST": "127.0.0.1",
+  "RABBITMQ_PORT": 5772,
+  "RABBITMQ_USERNAME": "crm-user",
+  "RABBITMQ_PASSWORD": "th2jBqXL",
+  "RABBITMQ_VHOST": "/crm",
+  "fastify": {
+    "logger": {
+      "level": "info"
+    }
+  },
+  "MONGODB_OPT": {
+    "native_parser": true,
+    "poolSize": 5,
+    "useNewUrlParser": true,
+    "useUnifiedTopology": true
+  }
+}

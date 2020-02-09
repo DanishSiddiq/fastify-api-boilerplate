@@ -1,0 +1,16 @@
+{
+  "NODE_ENV": "dev",
+  "NODE_PORT": 7001,
+  "MONGODB_DSN": "mongodb://192.168.99.100:37017/student_enrollment",
+  "MONGODB_OPT": {
+    "native_parser": true,
+    "poolSize": 5,
+    "useNewUrlParser": true,
+    "useUnifiedTopology": true
+  },
+  "RABBITMQ_HOST": "192.168.99.100",
+  "RABBITMQ_PORT": 5772,
+  "RABBITMQ_USERNAME": "crm-user",
+  "RABBITMQ_PASSWORD": "th2jBqXL",
+  "RABBITMQ_VHOST": "/crm"
+}
