@@ -8,7 +8,7 @@ module.exports = () => {
         {
             method: 'GET',
             url: '/student',
-            handler: controller.get
+            handler: controller.findOne
         },
         {
             method: 'POST',

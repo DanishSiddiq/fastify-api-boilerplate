@@ -1,13 +1,6 @@
+const Boom = require('boom');
 const HttpStatus = require('http-status-codes/index');
-
-/**
- *
- * @param request
- * @param reply
- */
-const get = async (request, reply) => {
-    reply.code(HttpStatus.OK).send({ id: 'B201026', fistName: 'Danish', lastName: 'Siddiq' });
-};
+const studentService = require('../services/student-service');
 
 /**
  *
@@ -15,8 +8,30 @@ const get = async (request, reply) => {
  * @param reply
  */
 const create = async (request, reply) => {
-    reply.code(HttpStatus.OK).send({ isCreated: true });
+    try {
+        const document = await studentService.create(request.body);
+        reply.code(HttpStatus.CREATED).send(document);
+    } catch  (e) {
+        request.log.error(e);
+        return Boom.boomify(e);
+    }
 };
 
-module.exports = { get, create };
+/**
+ *
+ * @param request
+ * @param reply
+ */
+const findOne = async (request, reply) => {
+    try {
+        const requestParams = { ...request.body, ...request.query, ...request.params };
+        const document = await studentService.findOne(requestParams);
+        reply.code(HttpStatus.OK).send(document);
+    } catch (e) {
+        request.log.error(e);
+        return Boom.boomify(e);
+    }
+};
+
+module.exports = { findOne, create };
 

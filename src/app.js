@@ -4,20 +4,26 @@ const { dbService } = require('./helper/mongo.db');
 const { infoRoutesMiddleware } = require('./routes/info');
 const { initiateRabbitMQ } = require('./queues/connection/rabbitmq');
 const { v1RoutesMiddleware } = require('./routes');
+const { handleExit, handleUncaughtErrors } = require('./core/fatal');
 
 const fastifyOpts = config.get('fastify', {});
 const fastifyConfig = typeof fastifyOpts === 'string' ? JSON.parse(fastifyOpts) : fastifyOpts;
 const fastify = require('fastify')(fastifyConfig);
 
-// Export fastify for later reference
-module.exports = fastify;
-
 (async function() {
     try {
+
+        handleExit();
+        handleUncaughtErrors();
+
         // Connect to DB
         if (process.env.NODE_ENV !== 'test') {
             await dbService();
         }
+
+        // queue listener
+        //initiateRabbitMQ();
+
 
         // Middlewares
         fastify.use(cors());
@@ -26,9 +32,6 @@ module.exports = fastify;
         // fastify.register(require('fastify-boom'));
         fastify.register(v1RoutesMiddleware, { prefix: '/v1' });
         fastify.register(infoRoutesMiddleware);
-
-        // queue listener
-        //initiateRabbitMQ();
 
         // Server
         await fastify.listen(config.get('NODE_PORT', 6661), '0.0.0.0');
@@ -43,9 +46,5 @@ module.exports = fastify;
     }
 })();
 
-process.on('unhandledRejection', errorHandler);
-process.on('uncaughtException', errorHandler);
-
-function errorHandler(err) {
-    fastify.log.error(err, 'Error occurred in order-cli');
-}
+// Export fastify for later reference
+module.exports = fastify;
