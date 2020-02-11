@@ -7,12 +7,12 @@ module.exports = () => {
     return [
         {
             method: 'GET',
-            url: '/student',
+            url: '/student/find/:_id',
             handler: controller.findOne
         },
         {
             method: 'POST',
-            url: '/student/create',
+            url: '/student',
             handler: controller.create
         }
     ];

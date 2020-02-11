@@ -8,7 +8,7 @@ const create = async (data) => {
 
 const findOne = async (whereClause, projection = {}) => {
     const repository = new Repository(studentModel);
-    return repository.findOne(whereClause, projection);
+    return repository.findOne({ _id: whereClause._id }, projection);
 };
 
 module.exports = { create, findOne };
