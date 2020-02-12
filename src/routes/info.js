@@ -1,4 +1,4 @@
-const schema = require('../controllers/schemas/info-schema');
+const schema = require('./schemas/info-schema');
 const controller = require('../controllers/info-controller');
 
 const infoRoutesMiddleware = (fastify, opts, next) => {
