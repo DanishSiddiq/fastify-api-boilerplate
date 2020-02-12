@@ -4,15 +4,19 @@ const { dbService } = require('./helper/mongo.db');
 const { infoRoutesMiddleware } = require('./routes/info');
 const { initiateRabbitMQ } = require('./queues/connection/rabbitmq');
 const { v1RoutesMiddleware } = require('./routes');
-const { handleExit, handleUncaughtErrors } = require('./core/fatal');
+const { handleExit, handleUncaughtErrors, referFastify } = require('./core/fatal');
 
-const fastifyOpts = config.get('fastify', {});
+const fastifyOpts   = config.get('fastify', {});
 const fastifyConfig = typeof fastifyOpts === 'string' ? JSON.parse(fastifyOpts) : fastifyOpts;
-const fastify = require('fastify')(fastifyConfig);
+const fastify       = require('fastify')(fastifyConfig);
+
+// Export fastify for later reference
+module.exports = fastify;
 
 (async function() {
     try {
 
+        referFastify(fastify);
         handleExit();
         handleUncaughtErrors();
 
@@ -22,16 +26,15 @@ const fastify = require('fastify')(fastifyConfig);
         }
 
         // queue listener
-        //initiateRabbitMQ();
-
+        // initiateRabbitMQ();
 
         // Middlewares
         fastify.use(cors());
 
         // Plugins
-        // fastify.register(require('fastify-boom'));
-        fastify.register(v1RoutesMiddleware, { prefix: '/v1' });
+        fastify.register(require('fastify-boom'));
         fastify.register(infoRoutesMiddleware);
+        fastify.register(v1RoutesMiddleware, { prefix: '/v1' });
 
         // Server
         await fastify.listen(config.get('NODE_PORT', 6661), '0.0.0.0');
@@ -46,5 +49,5 @@ const fastify = require('fastify')(fastifyConfig);
     }
 })();
 
-// Export fastify for later reference
-module.exports = fastify;
+// require('./core/fatal').handleExit();
+// require('./core/fatal').handleUncaughtErrors();

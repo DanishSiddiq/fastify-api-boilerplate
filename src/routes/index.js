@@ -1,15 +1,18 @@
 const fs = require('fs');
 const path = require('path');
+const { guardMiddleware } = require('../middlewares/guard-middleware');
 
 /**
- * Sync read routes directory for dynamic load
  *
- * @param {Fastify} fastify
- * @param {Object} opts
- * @param {Callback} next
+ * @param fastify
+ * @param opts
+ * @param next
  */
 const v1RoutesMiddleware = (fastify, opts, next) => {
   const directory = path.join(__dirname, 'v1');
+
+  // middlewares
+  fastify.use(guardMiddleware);
 
   fs.readdirSync(directory).forEach(file => {
     const routePath = path.join(directory, file);

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const fastify = require('../app');
+let fastify;
 
 /**
  *
@@ -45,7 +45,15 @@ const handleExit = () => {
   });
 };
 
-module.exports = { handleExit, handleUncaughtErrors };
+/**
+ *
+ * @param app
+ */
+const referFastify = (app) => {
+    fastify = app;
+};
+
+module.exports = { handleExit, handleUncaughtErrors, referFastify };
 
 
 
