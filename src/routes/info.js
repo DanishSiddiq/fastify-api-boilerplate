@@ -12,16 +12,19 @@ const infoRoutesMiddleware = (fastify, opts, next) => {
         {
             method: 'GET',
             url: '/ping',
+            schema: schema.ping,
             handler: controller.ping
         },
         {
             method: 'GET',
             url: '/version',
+            schema: schema.version,
             handler: controller.getVersion
         },
         {
             method: 'GET',
             url: '/health',
+            schema: schema.health,
             handler: controller.checkHealth
         }
     ];
