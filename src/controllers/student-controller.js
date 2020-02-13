@@ -26,7 +26,7 @@ const findOne = async (request, reply) => {
     try {
         const requestParams = { ...request.body, ...request.query, ...request.params };
         const document = await studentService.findOne(requestParams);
-        reply.code(HttpStatus.OK).send(document);
+        reply.code(document ? HttpStatus.OK : HttpStatus.BAD_REQUEST).send(document || {});
     } catch (e) {
         request.log.error(e);
         return Boom.boomify(e);

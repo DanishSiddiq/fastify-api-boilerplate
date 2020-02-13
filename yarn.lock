@@ -1330,7 +1330,7 @@ fastify-plugin@^0.2.2:
   dependencies:
     semver "^5.4.1"
 
-fastify@^2.0.0:
+fastify@^2.10.0:
   version "2.12.0"
   resolved "https://registry.yarnpkg.com/fastify/-/fastify-2.12.0.tgz#c2cb051c8741ee733d47d5deee0d8be34d8790e8"
   integrity sha512-xwYgmJ/vWvVH78mhRfA3IxKeG2wkoi1WsExny4ukbNMI6f0S2B1n3SMxtGJp+qISOR1FAv3D8KZyEXVAGa4Ewg==
