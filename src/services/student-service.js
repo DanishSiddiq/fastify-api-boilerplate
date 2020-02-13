@@ -1,16 +1,38 @@
 const studentModel = require('../models/student-model');
 const Repository = require('../models/data-access/repository');
 
-const create = async (data) => {
+/**
+ *
+ * @param data
+ * @returns {Promise<document>}
+ */
+const createOne = async (data) => {
     const repository = new Repository(studentModel);
-    return repository.create(data);
+    return repository.createOne(data);
 };
 
+/**
+ *
+ * @param whereClause
+ * @param data
+ * @returns {Promise<Query|*>}
+ */
+const updateOne = async (whereClause, data) => {
+    const repository = new Repository(studentModel);
+    return repository.updateOne({ ...whereClause, _id: whereClause._id }, data);
+};
+
+/**
+ *
+ * @param whereClause
+ * @param projection
+ * @returns {Promise<Promise<*>|Query|void|Promise<*|undefined>>}
+ */
 const findOne = async (whereClause, projection = {}) => {
     const repository = new Repository(studentModel);
-    return repository.findOne({ _id: whereClause._id }, projection);
+    return repository.findOne({ ...whereClause, _id: whereClause._id }, projection);
 };
 
-module.exports = { create, findOne };
+module.exports = { createOne, updateOne, findOne };
 
 

@@ -8,15 +8,21 @@ module.exports = () => {
     return [
         {
             method: 'GET',
-            url: '/student/find/:_id',
+            url: '/student/:_id',
             schema: schema.findById,
             handler: controller.findOne
         },
         {
+            method: 'PUT',
+            url: '/student/:_id',
+            schema: schema.updateOne,
+            handler: controller.updateOne
+        },
+        {
             method: 'POST',
             url: '/student',
-            schema: schema.create,
-            handler: controller.create
+            schema: schema.createOne,
+            handler: controller.createOne
         }
     ];
 };

@@ -10,8 +10,18 @@ class Repository {
      * @param document
      * @returns {Promise<document>}
      */
-    async create(document) {
+    async createOne(document) {
         return this.model.create(document);
+    };
+
+    /**
+     *
+     * @param whereClause
+     * @param document
+     * @returns {Promise<Query|*>}
+     */
+    async updateOne(whereClause = {}, document) {
+        return this.model.updateOne(whereClause, document);
     };
 
     /**

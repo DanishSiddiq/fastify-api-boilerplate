@@ -14,8 +14,18 @@ const studentCreateSchema = {
     required: ['firstName', 'lastName', 'registrationNumber']
 };
 
+const studentUpdateSchema = {
+    type: 'object',
+    properties: {
+        firstName: { type: 'string', example: 'Danish' },
+        middleName: { type: 'string', example: 'Muhammad' },
+        lastName: { type: 'string', example: 'Siddiq' }
+    },
+    required: ['firstName', 'lastName']
+};
+
 module.exports = {
-    create: {
+    createOne: {
         description: 'Create Student',
         tags: ['Student'],
         summary: 'Create Student Data',
@@ -33,7 +43,33 @@ module.exports = {
                     updatedAt: { type: 'string', example: '2019-01-02T00:00:00Z' }
                 },
             },
-            [HttpStatus.NOT_FOUND]: notFoundSchema,
+            [HttpStatus.BAD_REQUEST]: notFoundSchema,
+            [HttpStatus.INTERNAL_SERVER_ERROR]: errorSchema
+        }
+    },
+    updateOne: {
+        description: 'Update Student',
+        tags: ['Student'],
+        summary: 'Update Student Data',
+        params: {
+            type: 'object',
+            properties: {
+                id: {
+                    type: 'string',
+                    description: 'student id'
+                }
+            }
+        },
+        querystring: studentUpdateSchema,
+        response: {
+            [HttpStatus.OK]: {
+                description: 'Successful response',
+                type: 'object',
+                properties: {
+                    status: { type: 'string' },
+                },
+            },
+            [HttpStatus.BAD_REQUEST]: notFoundSchema,
             [HttpStatus.INTERNAL_SERVER_ERROR]: errorSchema
         }
     },
