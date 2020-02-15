@@ -10,10 +10,19 @@ Fastify framework based backend api for NodeJs application
 * configurations are in .config.json and local configuration can be override in .config.override.json
 
 #
-**info end points**
-*  information about the application and its health status
+**Install dependencies:**
+* yarn install
 
-**Get**
+#
+**Build/Run application:**
+* yarn start
+* yarn dev
+
+#
+**Application health status:**
+* information about the application and its health status
+
+**Get:**
 ```
 http://localhost:7001/keep-alive
 http://localhost:7001/ping
