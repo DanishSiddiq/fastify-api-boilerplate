@@ -14,9 +14,13 @@ Fastify framework based backend api for NodeJs application
 * yarn install
 
 #
+**Test application:**
+* yarn jest
+
+#
 **Build/Run application:**
-* yarn start
-* yarn dev
+* yarn start (for production environment) **/**
+* yarn dev (for development environment)
 
 #
 **Application health status:**

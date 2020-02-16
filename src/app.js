@@ -22,10 +22,10 @@ module.exports = fastify;
         // Connect to DB
         if (process.env.NODE_ENV !== 'test') {
             await dbService();
-        }
 
-        // queue listener
-        // initiateRabbitMQ();
+            // queue listener
+            // initiateRabbitMQ();
+        }
 
         // Middlewares
         fastify.use(cors());
@@ -47,6 +47,3 @@ module.exports = fastify;
         process.exit(1);
     }
 })();
-
-// require('./core/fatal').handleExit();
-// require('./core/fatal').handleUncaughtErrors();
