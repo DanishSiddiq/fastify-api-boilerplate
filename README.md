@@ -15,7 +15,7 @@ Fastify framework based backend api for NodeJs application
 
 #
 **Test application:**
-* yarn jest
+* yarn test
 
 #
 **Build/Run application:**
