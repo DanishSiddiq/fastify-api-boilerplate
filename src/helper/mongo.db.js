@@ -10,7 +10,7 @@ const uri = config.get('MONGODB_DSN', '');
 async function dbService(){
     try {
         await mongoose.connect(uri, opts);
-        logInfoDetails( { message: 'Mongodb Connected', additionalData: null });
+        logInfoDetails( { message: 'Mongodb Connected' });
     } catch (error) {
         logErrDetails({ error, message: 'Mongo DB not connected' });
     }

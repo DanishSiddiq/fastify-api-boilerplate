@@ -4,7 +4,7 @@ const { dbService } = require('./helper/mongo.db');
 const { infoRoutesMiddleware } = require('./routes/info');
 const { initiateRabbitMQ } = require('./queues/connection/rabbitmq');
 const { v1RoutesMiddleware } = require('./routes');
-const { handleExit, handleUncaughtErrors, referFastify } = require('./core/fatal');
+const { handleExit, handleUncaughtErrors } = require('./helper/fatal');
 
 const fastifyOpts   = config.get('fastify', {});
 const fastifyConfig = typeof fastifyOpts === 'string' ? JSON.parse(fastifyOpts) : fastifyOpts;
@@ -16,7 +16,6 @@ module.exports = fastify;
 (async function() {
     try {
 
-        referFastify(fastify);
         handleExit();
         handleUncaughtErrors();
 

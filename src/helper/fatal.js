@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-let fastify;
+const { logInfoDetails, logErrDetails } = require('../helper/logger');
 
 /**
  *
@@ -7,7 +7,7 @@ let fastify;
  */
 function errorHandler(err) {
   disconnectMongo();
-  fastify.log.error(err, 'Error occurred in student-api-boilerplate');
+  logErrDetails( { error: err, message: 'Error occurred in student-api-boilerplate' } );
 }
 
 /**
@@ -15,7 +15,7 @@ function errorHandler(err) {
  */
 const disconnectMongo = () => {
   mongoose.connection.close(function () {
-    fastify.log.info('Mongoose default connection disconnected through app termination');
+    logInfoDetails( { message: 'Mongoose default connection disconnected through app termination' });
   });
 };
 
@@ -45,15 +45,7 @@ const handleExit = () => {
   });
 };
 
-/**
- *
- * @param app
- */
-const referFastify = (app) => {
-    fastify = app;
-};
-
-module.exports = { handleExit, handleUncaughtErrors, referFastify };
+module.exports = { handleExit, handleUncaughtErrors };
 
 
 

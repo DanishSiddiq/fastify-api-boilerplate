@@ -1,20 +1,8 @@
-const cmn = require('./common');
+const { config }    = require('./config');
+const fastifyOpts   = config.get('fastify', {});
+const fastifyConfig = typeof fastifyOpts === 'string' ? JSON.parse(fastifyOpts) : fastifyOpts;
+const fastify       = require('fastify')(fastifyConfig);
 
-/**
- *
- * @param logObj
- */
-const logMsg = (logObj) => {
-  let logObject = {
-    ...logObj,
-    '@ts': new Date().toISOString(),
-  };
-
-  console.dir(JSON.stringify(logObject, cmn.replaceErrors));
-
-  // free mem-leak
-  logObject = null;
-};
 
 /**
  *
@@ -23,12 +11,7 @@ const logMsg = (logObj) => {
  * @param additionalData
  */
 const logErrDetails = ({ message = '', error = {}, additionalData }) => {
-  logMsg({
-    level: 'ERROR',
-    message,
-    error,
-    ...(additionalData ? { additionalData } : {}),
-  });
+  fastify.log.error(error, message, additionalData);
 };
 
 /**
@@ -37,11 +20,7 @@ const logErrDetails = ({ message = '', error = {}, additionalData }) => {
  * @param additionalData
  */
 const logInfoDetails = ({ message = '', additionalData = {} }) => {
-  logMsg({
-    level: 'INFO',
-    message,
-    ...(additionalData ? { additionalData } : {}),
-  });
+  fastify.log.info(message, additionalData);
 };
 
 module.exports = { logErrDetails, logInfoDetails };
